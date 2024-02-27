@@ -1,0 +1,26 @@
+{
+  "id": "scenemessage",
+  "title": "Scene Specific Messages",
+  "version": "0.1.0",
+  "esmodules": ["module.mjs"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
+  ],
+  "flags": {"hotReload": {"extensions": ["json"]}},
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "authors": [
+    {
+      "name": "alakshana",
+      "discord": "alakshana",
+      "flags": {}
+    }
+  ]
+}
