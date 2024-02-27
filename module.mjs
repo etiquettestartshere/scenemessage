@@ -1,10 +1,11 @@
 import { sceneMessage } from "./scripts/scene-messages.mjs";
 import { API } from "./scripts/api.mjs";
 import { settings } from "./scripts/settings.mjs";
+import { MODULE } from "./scripts/const.mjs";
 
 class scopeManager {
   static init() {
-    globalThis.scenemessage = {
+    game.modules.get(MODULE).api = {
       global: API._globalFlag
     }
   };
