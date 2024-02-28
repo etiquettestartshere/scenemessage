@@ -30,8 +30,8 @@ export class settings {
     });
 
     game.settings.register(MODULE, "allowInheritance", {
-      name: "SCENEMESSAGE.Settings.In",
-      hint: "SCENEMESSAGE.Settings.InHi",
+      name: "SCENEMESSAGE.Settings.InheritanceName",
+      hint: "SCENEMESSAGE.Settings.InheritanceHint",
       scope: "world",
       config: true,
       type: Boolean,
