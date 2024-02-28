@@ -46,14 +46,14 @@ export class API {
       title: 'Load Messages',
       content: `
         <style>
-          .dialog input.batch-dialog[name="size"] {
+          .dialog input.render-batch-dialog[name="size"] {
             max-width: 100px;
           }
         </style>
         <form class="flexcol">
           <div class="form-group">
             <label for="load-number">Number of messages to load:</label>
-            <input type="number" id="load-number" class="batch-dialog" name="size">
+            <input type="number" id="load-number" class="render-batch-dialog" name="size">
           </div>
         </form>
       `,
