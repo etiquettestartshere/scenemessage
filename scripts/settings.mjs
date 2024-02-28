@@ -28,5 +28,16 @@ export class settings {
       requiresReload: true,
       onChange: false
     });
+
+    game.settings.register(MODULE, "allowInheritance", {
+      name: "SCENEMESSAGE.Settings.In",
+      hint: "SCENEMESSAGE.Settings.InHi",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      requiresReload: true,
+      onChange: false
+    });
   };
 };

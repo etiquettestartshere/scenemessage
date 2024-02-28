@@ -11,6 +11,11 @@ A module for foundryvtt that loads chat messages on a per-scene basis.
 ### ALPHA TESTING PERIOD
 Please let me know if you encounter any issues (report them in Issues). In particular, I am looking for testers on foundry v10 to see if backwards compatibility is robust.
 - I may consider adding an option to sort by scene *name* rather than id, so that chatlogs can be migrated easily from one scene to another, but because this would involve a larger proliferation of flags I am against it unless I can find a way to restrict the flags only to scenes rather than chat messages.
+
+### Known Issues
+Because foundry only loads the last 100 chat messages, scenes which have fewer than a scrollbar's worth of chat messages flagged to appear in them in the last 100 cannot scroll up, and because of that they cannot load any older messages. 
+
+Load time is strongly impacted: only use this module if you really need it.
 ___
 ###### **Technical Details**
 

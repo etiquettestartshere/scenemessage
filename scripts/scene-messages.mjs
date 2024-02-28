@@ -13,13 +13,16 @@ export class sceneMessage {
     const origin = message.speaker?.scene;
     if (!origin) return;
     let data;
-    const inherit = game.scenes?.viewed?.getFlag(MODULE, "inherit");
-    const match = inherit?.some((i) => i === origin);
-    if (match) {
-      data = game.scenes.viewed.id;
-    } else {
-      data = origin;
-    }
+    if (game.settings.get(MODULE, "allowInheritance")) {
+      const inherit = game.scenes?.viewed?.getFlag(MODULE, "inherit");
+      const match = inherit?.some((i) => i === origin);
+      if (match) {
+        data = game.scenes.viewed.id;
+      } else {
+        data = origin;
+      }
+      html.setAttribute("data-original-scene", data);
+    } else data = origin;
     html.setAttribute("data-original-scene", data);
     if (message.type === 1) {
       if (game.settings.get(MODULE, "sortOoc")) return;
