@@ -11,10 +11,18 @@ export class sceneMessage {
     if (game.settings.get(MODULE, "globalChat")) return;
     const origin = message.speaker?.scene;
     if (!origin) return;
-    html.setAttribute("data-original-scene", origin);
+    let data;
+    const inherit = game.scenes?.viewed?.getFlag(MODULE, "inherit");
+    const match = inherit?.filter((i) => i === origin);
+    if (match) {
+      data = game.scenes.viewed.id;
+    } else {
+      data = origin;
+    }
+    html.setAttribute("data-original-scene", data);
     if (message.type === 1) {
       if (game.settings.get(MODULE, "sortOoc")) return;
-      else html.removeAttribute("data-original-scene", origin);
+      else html.removeAttribute("data-original-scene", data);
     };
   };
 
@@ -31,7 +39,7 @@ export class sceneMessage {
     if (temp) temp.remove();
     if (game.settings.get(MODULE, "globalChat")) return;
     if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
-    const current = game.scenes.viewed.id;
+    const current =  game.scenes.viewed.id;
     const styleEl = document.createElement("style");
     styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
     styleEl.classList.add("temporary");

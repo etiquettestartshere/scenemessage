@@ -6,7 +6,8 @@ import { MODULE } from "./scripts/const.mjs";
 class scopeManager {
   static init() {
     game.modules.get(MODULE).api = {
-      global: API._globalFlag
+      global: API._globalFlag,
+      inherit: API._inheritFlag
     }
   };
 };
