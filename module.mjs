@@ -7,7 +7,8 @@ class scopeManager {
   static init() {
     game.modules.get(MODULE).api = {
       global: API._globalFlag,
-      inherit: API._inheritFlag
+      inherit: API._inheritFlag,
+      load: API._renderBatchDialog
     }
   };
 };
