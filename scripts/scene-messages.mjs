@@ -27,17 +27,14 @@ export class sceneMessage {
   };
 
   static _sceneChange() {
-    _change();
+    const temp = document.querySelector(".temporary");
+    if (temp) temp.remove();
+    if (game.settings.get(MODULE, "globalChat")) return;
+    if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
+    const current = game.scenes.viewed.id;
+    const styleEl = document.createElement("style");
+    styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
+    styleEl.classList.add("temporary");
+    document.head.appendChild(styleEl);
   };
-};
-
-export function _change() {
-  const temp = document.querySelector(".temporary");
-  if (temp) temp.remove();
-  if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
-  const current = game.scenes.viewed.id;
-  const styleEl = document.createElement("style");
-  styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
-  styleEl.classList.add("temporary");
-  document.head.appendChild(styleEl);
 };

@@ -1,5 +1,4 @@
 import { MODULE } from "./const.mjs";
-import { sceneMessage } from "./scene-messages.mjs";
 
 export class settings {
 
