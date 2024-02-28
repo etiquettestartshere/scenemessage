@@ -15,8 +15,8 @@ export class API {
       content: `
         <form class="flexcol">
           <div class="form-group">
-            <label for="id">Inherit this ID:</label>
-            <input type="string" name="id">
+            <label for="scene-id">Inherit this ID:</label>
+            <input type="string" id="scene-id" name="id">
           </div>
         </form>
       `,
@@ -39,5 +39,48 @@ export class API {
     const inheritance = foundry.utils.deepClone(game.scenes.viewed.getFlag(MODULE, "inherit") ?? []);
     inheritance.push(id);
     await game.scenes.viewed.setFlag(MODULE, "inherit", inheritance);
+  };
+
+  static async _renderBatchDialog() {
+    const {size} = await Dialog.wait({
+      title: 'Load Messages',
+      content: `
+        <style>
+          .dialog input.batch-dialog[name="size"] {
+            max-width: 100px;
+          }
+        </style>
+        <form class="flexcol">
+          <div class="form-group">
+            <label for="load-number">Number of messages to load:</label>
+            <input type="number" id="load-number" class="batch-dialog" name="size">
+          </div>
+        </form>
+      `,
+      buttons: {
+        yes: {
+          icon: '<i class="fas fa-check"></i>',
+          label: 'OK',
+          callback: (html) => new FormDataExtended(html[0].querySelector("form")).object
+        },
+        hundred: {
+          icon: '<i class="fa-solid fa-hundred-points"></i>',
+          callback: html => {return {size: 100}}
+        },
+        no: {
+          icon: '<i class="fas fa-times"></i>',
+          label: 'Cancel',
+          callback: html => {return {size: null}}
+        },
+      },
+      default: 'yes',
+      close: () => {return {size: null}}
+    },
+    {
+      id: "scene-message-batch-loader"
+    });
+    if (size === null) return;
+    console.log(`Loaded next ${size} messages`);
+    await ui.chat._renderBatch(ui.chat.element, size);
   };
 };
