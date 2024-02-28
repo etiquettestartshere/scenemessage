@@ -1,6 +1,6 @@
 {
   "SCENEMESSAGE.Settings.GlobalChatName": "Unsort Chat",
-  "SCENEMESSAGE.Settings.GlobalChatHint": "Stop sorting chat messages by scene (default foundry behavior)",
+  "SCENEMESSAGE.Settings.GlobalChatHint": "Stop sorting chat messages by scene (default foundry behavior).",
   "SCENEMESSAGE.Settings.SortOocName": "Sort Out of Character Messages",
-  "SCENEMESSAGE.Settings.SortOocHint": "Mark and sort out of character messages by scene (will not apply to messages made without this setting enabled)"
+  "SCENEMESSAGE.Settings.SortOocHint": "Mark and sort out of character messages by scene (will not apply to messages made without this setting enabled)."
 }
