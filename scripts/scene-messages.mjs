@@ -11,14 +11,16 @@ export class sceneMessage {
     if (game.settings.get(MODULE, "globalChat")) return;
     const origin = message.speaker?.scene;
     if (!origin) return;
+    console.warn(origin);
     let data;
     const inherit = game.scenes?.viewed?.getFlag(MODULE, "inherit");
-    const match = inherit?.filter((i) => i === origin);
+    const match = inherit?.some((i) => i === origin);
     if (match) {
       data = game.scenes.viewed.id;
     } else {
       data = origin;
     }
+    console.warn(data);
     html.setAttribute("data-original-scene", data);
     if (message.type === 1) {
       if (game.settings.get(MODULE, "sortOoc")) return;
