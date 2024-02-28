@@ -8,6 +8,7 @@ export class sceneMessage {
   };
 
   static _sceneMessages(message, [html]) {
+    if (game.settings.get(MODULE, "globalChat")) return;
     const origin = message.speaker?.scene;
     if (!origin) return;
     html.setAttribute("data-original-scene", origin);
@@ -18,6 +19,7 @@ export class sceneMessage {
   };
 
   static _oocSpeaker(message, data) {
+    if (game.settings.get(MODULE, "globalChat")) return;
     if (!game.settings.get(MODULE, "sortOoc")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
@@ -25,13 +27,17 @@ export class sceneMessage {
   };
 
   static _sceneChange() {
-    const temp = document.querySelector(".temporary");
-    if (temp) temp.remove();
-    if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
-    const current = game.scenes.viewed.id;
-    const styleEl = document.createElement("style");
-    styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
-    styleEl.classList.add("temporary");
-    document.head.appendChild(styleEl);
+    _change();
   };
+};
+
+export function _change() {
+  const temp = document.querySelector(".temporary");
+  if (temp) temp.remove();
+  if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
+  const current = game.scenes.viewed.id;
+  const styleEl = document.createElement("style");
+  styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
+  styleEl.classList.add("temporary");
+  document.head.appendChild(styleEl);
 };

@@ -1,13 +1,25 @@
 import { MODULE } from "./const.mjs";
+import { sceneMessage } from "./scene-messages.mjs";
 
 export class settings {
 
   static init() {
-    settings._ooc();
+    settings._settings();
   };
   
-  static _ooc() {
-    game.settings.register(MODULE, 'sortOoc', {
+  static _settings() {
+    game.settings.register(MODULE, "globalChat", {
+      name: "SCENEMESSAGE.Settings.GlobalChatName",
+      hint: "SCENEMESSAGE.Settings.GlobalChatHint",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      requiresReload: true,
+      onChange: false
+    });
+
+    game.settings.register(MODULE, "sortOoc", {
       name: "SCENEMESSAGE.Settings.SortOocName",
       hint: "SCENEMESSAGE.Settings.SortOocHint",
       scope: "world",
@@ -18,4 +30,4 @@ export class settings {
       onChange: false
     });
   };
-};  
+};
