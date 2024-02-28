@@ -2,13 +2,14 @@ import { MODULE } from "./const.mjs";;
 
 export class sceneMessage {
   static init() {
-    Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
-    Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
+    if (!game.settings.get(MODULE, "globalChat")) {
+      Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
+      Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
+    };  
     Hooks.on("canvasDraw", sceneMessage._sceneChange);
   };
 
   static _sceneMessages(message, [html]) {
-    if (game.settings.get(MODULE, "globalChat")) return;
     const origin = message.speaker?.scene;
     if (!origin) return;
     let data;
