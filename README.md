@@ -1,4 +1,4 @@
-## Scene Specific Messages
+# Scene Specific Messages
 A module for foundryvtt that loads chat messages on a per-scene basis.
 - Includes a setting to mark and filter OOC messages. Note: this cannot *retroactively* filter OOC messages made without the setting on, though any OOC message made when this setting is on can be filtered or not depending on the setting. Does not sort whispers in any case.
 - Includes a functionality that allows you to mark new scenes with the old one's ID (without overwriting its actual ID) to let chat messages be sorted into that scene--see API for more.
