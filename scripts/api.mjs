@@ -64,7 +64,7 @@ export class API {
           callback: (html) => new FormDataExtended(html[0].querySelector("form")).object
         },
         hundred: {
-          icon: '<i class="fa-solid fa-hundred-points"></i>',
+          label: '100',
           callback: html => {return {size: 100}}
         },
         no: {
