@@ -2,6 +2,7 @@ import { MODULE } from "./const.mjs";
 
 export class API {
   static async _globalFlag() {
+    if (!game.user.isGM) return ui.notifications.warn("Must be GM to set global flag.")
     game.scenes.viewed.getFlag(MODULE, "global") ? 
     await game.scenes.viewed.unsetFlag(MODULE, "global") : 
     await game.scenes.viewed.setFlag(MODULE, "global", true); 
@@ -10,6 +11,7 @@ export class API {
   };
 
   static async _inheritFlag() {
+    if (!game.user.isGM) return ui.notifications.warn("Must be GM to set inheritance flags.")
     const {id} = await Dialog.wait({
       title: 'Inheritance',
       content: `
