@@ -1,7 +1,7 @@
-import { sceneMessage } from "./scripts/scene-messages.mjs";
-import { API } from "./scripts/api.mjs";
-import { settings } from "./scripts/settings.mjs";
-import { MODULE } from "./scripts/const.mjs";
+import { sceneMessage } from "./scene-messages.mjs";
+import { API } from "./api.mjs";
+import { settings } from "./settings.mjs";
+import { MODULE } from "./const.mjs";
 
 class scopeManager {
   static init() {

@@ -1,6 +1,7 @@
 # Scene Specific Messages
 A module for foundryvtt that loads chat messages on a per-scene basis.
-- Includes a setting to mark and filter OOC messages. Note: this cannot *retroactively* filter OOC messages made without the setting on, though any OOC message made when this setting is on can be filtered or not depending on the setting. Does not sort whispers in any case.
+- Includes a setting to flag and filter OOC messages. Note: this cannot *retroactively* filter OOC messages made without the setting on, though any OOC message made when this setting is on can be filtered or not depending on the setting.
+- Includes a setting to sort whispers in the same manner as above.
 - Includes a functionality that allows you to mark new scenes with the old one's ID (without overwriting its actual ID) to let chat messages be sorted into that scene--see API for more.
 
 ### API
@@ -17,8 +18,7 @@ A module for foundryvtt that loads chat messages on a per-scene basis.
 Because foundry only loads the last 100 chat messages, scenes which have fewer than a scrollbar's worth of chat messages flagged to appear in them in the last 100 cannot scroll up, and because of that they cannot load any older messages. Please use the first API method to overcome this if needed: for best results, do not load more than you need, though loading large numbers may not be able to be avoided if you have a world with many messages.
 
 ### ALPHA TESTING PERIOD
-Please let me know if you encounter any issues (report them in Issues). In particular, I am looking for testers on foundry v10 to see if backwards compatibility is robust.
-- I may consider adding an option to sort by scene *name* rather than id, so that chatlogs can be migrated easily from one scene to another, but because this would involve a larger proliferation of flags I am against it unless I can find a way to restrict the flags only to scenes rather than chat messages.
+Please let me know if you encounter any issues (report them in Issues).
 ___
 ###### **Technical Details**
 

@@ -4,6 +4,7 @@ export class sceneMessage {
   static init() {
     if (!game.settings.get(MODULE, "globalChat")) {
       Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
+      Hooks.on("preCreateChatMessage", sceneMessage._whisperSpeaker);
       Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
     };  
     Hooks.on("canvasDraw", sceneMessage._sceneChange);
@@ -31,11 +32,17 @@ export class sceneMessage {
   };
 
   static _oocSpeaker(message, data) {
-    if (game.settings.get(MODULE, "globalChat")) return;
     if (!game.settings.get(MODULE, "sortOoc")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
-    if (!speaker && message.type !== 4) message.updateSource({ "speaker.scene": viewed });
+    if (!speaker && (message.type !== 4)) message.updateSource({ "speaker.scene": viewed });
+  };
+
+  static _whisperSpeaker(message, data) {
+    if (!game.settings.get(MODULE, "sortWhisper")) return;
+    const viewed = game.scenes.viewed.id;
+    const speaker = data.speaker;
+    if (!speaker && message.type === 4) message.updateSource({ "speaker.scene": viewed });
   };
 
   static _sceneChange() {

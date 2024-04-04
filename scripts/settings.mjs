@@ -29,6 +29,17 @@ export class settings {
       onChange: false
     });
 
+    game.settings.register(MODULE, "sortWhisper", {
+      name: "SCENEMESSAGE.Settings.SortWhisperName",
+      hint: "SCENEMESSAGE.Settings.SortWhisperHint",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      requiresReload: true,
+      onChange: false
+    });
+
     game.settings.register(MODULE, "allowInheritance", {
       name: "SCENEMESSAGE.Settings.InheritanceName",
       hint: "SCENEMESSAGE.Settings.InheritanceHint",
