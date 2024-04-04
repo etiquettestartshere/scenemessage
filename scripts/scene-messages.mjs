@@ -42,7 +42,7 @@ export class sceneMessage {
     if (!game.settings.get(MODULE, "sortWhisper")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
-    if (!speaker && message.type === 4) message.updateSource({ "speaker.scene": viewed });
+    if (!speaker && (message.type === 4)) message.updateSource({ "speaker.scene": viewed });
   };
 
   static _sceneChange() {
