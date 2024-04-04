@@ -2,22 +2,22 @@ import { MODULE } from "./const.mjs";
 
 export class API {
   static async _globalFlag() {
-    if (!game.user.isGM) return ui.notifications.warn("Must be GM to set global flag.")
+    if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("SCENEMESSAGE.Notifications.SetGlobalFlag"));
     game.scenes.viewed.getFlag(MODULE, "global") ? 
     await game.scenes.viewed.unsetFlag(MODULE, "global") : 
     await game.scenes.viewed.setFlag(MODULE, "global", true); 
-    ui.notifications.info(`${game.scenes.viewed.name}'s global chat visiblity is now ${game.scenes.viewed.getFlag(MODULE, "global") ?? false}`);
+    ui.notifications.info(`${game.scenes.viewed.name}${game.i18n.localize("SCENEMESSAGE.Notifications.GlobalStatus")}${game.scenes.viewed.getFlag(MODULE, "global") ?? false}`);
     await canvas.draw();
   };
 
   static async _inheritFlag() {
-    if (!game.user.isGM) return ui.notifications.warn("Must be GM to set inheritance flags.")
+    if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("SCENEMESSAGE.Notifications.SetInheritanceFlag"));
     const {id} = await Dialog.wait({
-      title: 'Inheritance',
+      title: game.i18n.localize("SCENEMESSAGE.Dialog.Inheritance"),
       content: `
         <form class="flexcol">
           <div class="form-group">
-            <label for="scene-id">Inherit this ID:</label>
+            <label for="scene-id">${game.i18n.localize("SCENEMESSAGE.Dialog.InheritID")}</label>
             <input type="string" id="scene-id" name="id">
           </div>
         </form>
@@ -25,12 +25,12 @@ export class API {
       buttons: {
         yes: {
           icon: '<i class="fas fa-check"></i>',
-          label: 'OK',
+          label: game.i18n.localize("SCENEMESSAGE.Label.OK"),
           callback: (html) => new FormDataExtended(html[0].querySelector("form")).object
         },
         no: {
           icon: '<i class="fas fa-times"></i>',
-          label: 'Cancel',
+          label: game.i18n.localize("SCENEMESSAGE.Label.Cancel"),
           callback: html => {return {id: null}}
         },
       },
@@ -45,7 +45,7 @@ export class API {
 
   static async _renderBatchDialog() {
     const {size} = await Dialog.wait({
-      title: 'Load Messages',
+      title: game.i18n.localize("SCENEMESSAGE.Dialog.LoadMessages"),
       content: `
         <style>
           .dialog input.render-batch-dialog[name="size"] {
@@ -54,7 +54,7 @@ export class API {
         </style>
         <form class="flexcol">
           <div class="form-group">
-            <label for="load-number">Number of messages to load:</label>
+            <label for="load-number">${game.i18n.localize("SCENEMESSAGE.Dialog.NumberOfMessages")}</label>
             <input type="number" id="load-number" class="render-batch-dialog" name="size">
           </div>
         </form>
@@ -62,7 +62,7 @@ export class API {
       buttons: {
         yes: {
           icon: '<i class="fas fa-check"></i>',
-          label: 'OK',
+          label: game.i18n.localize("SCENEMESSAGE.Label.OK"),
           callback: (html) => new FormDataExtended(html[0].querySelector("form")).object
         },
         hundred: {
@@ -71,7 +71,7 @@ export class API {
         },
         no: {
           icon: '<i class="fas fa-times"></i>',
-          label: 'Cancel',
+          label: game.i18n.localize("SCENEMESSAGE.Label.Cancel"),
           callback: html => {return {size: null}}
         },
       },
@@ -82,7 +82,6 @@ export class API {
       id: "scene-message-batch-loader"
     });
     if (size === null) return;
-    console.log(`Loaded next ${size} messages`);
     await ui.chat._renderBatch(ui.chat.element, size);
   };
 };
