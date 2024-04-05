@@ -2,12 +2,12 @@ import { MODULE } from "./const.mjs";;
 
 export class sceneMessage {
   static init() {
-    if (!game.settings.get(MODULE, "globalChat")) {
-      Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
-      Hooks.on("preCreateChatMessage", sceneMessage._whisperSpeaker);
-      Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
-    };  
+    Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
+    Hooks.on("preCreateChatMessage", sceneMessage._whisperSpeaker);
     Hooks.on("canvasDraw", sceneMessage._sceneChange);
+    if (!game.settings.get(MODULE, "globalChat")) {
+      Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
+    };
   };
 
   static _sceneMessages(message, [html]) {
@@ -29,17 +29,21 @@ export class sceneMessage {
       if (game.settings.get(MODULE, "sortOoc")) return;
       else html.removeAttribute("data-original-scene", data);
     };
+    if (message.type === 4) {
+      if (game.settings.get(MODULE, "sortWhisper")) return;
+      else html.removeAttribute("data-original-scene", data);
+    };
   };
 
   static _oocSpeaker(message, data) {
-    if (!game.settings.get(MODULE, "sortOoc")) return;
+    if (!game.settings.get(MODULE, "flagOoc")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
     if (!speaker && (message.type !== 4)) message.updateSource({ "speaker.scene": viewed });
   };
 
   static _whisperSpeaker(message, data) {
-    if (!game.settings.get(MODULE, "sortWhisper")) return;
+    if (!game.settings.get(MODULE, "flagWhisper")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
     if (!speaker && (message.type === 4)) message.updateSource({ "speaker.scene": viewed });
