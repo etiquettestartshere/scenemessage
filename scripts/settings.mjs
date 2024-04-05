@@ -18,9 +18,31 @@ export class settings {
       onChange: false
     });
 
+    game.settings.register(MODULE, "flagOoc", {
+      name: "SCENEMESSAGE.Settings.FlagOocName",
+      hint: "SCENEMESSAGE.Settings.FlagOocHint",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      requiresReload: true,
+      onChange: false
+    });
+
     game.settings.register(MODULE, "sortOoc", {
       name: "SCENEMESSAGE.Settings.SortOocName",
       hint: "SCENEMESSAGE.Settings.SortOocHint",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: false,
+      requiresReload: true,
+      onChange: false
+    });
+
+    game.settings.register(MODULE, "flagWhisper", {
+      name: "SCENEMESSAGE.Settings.FlagWhisperName",
+      hint: "SCENEMESSAGE.Settings.FlagWhisperHint",
       scope: "world",
       config: true,
       type: Boolean,

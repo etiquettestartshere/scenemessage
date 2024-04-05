@@ -8,12 +8,16 @@
   "SCENEMESSAGE.Notifications.SetGlobalFlag": "Must be GM to set global flag.",
   "SCENEMESSAGE.Notifications.SetInheritanceFlag": "Must be GM to set inheritance flags.",
   "SCENEMESSAGE.Notifications.GlobalStatus": "'s global chat visiblity is now ",
+  "SCENEMESSAGE.Settings.FlagOocName": "Flag Out of Character Messages",
+  "SCENEMESSAGE.Settings.FlagOocHint": "Flag out of character messages for sorting (this will flag messages even when they are not being sorted, but it will not apply to messages made without this setting enabled).",
+  "SCENEMESSAGE.Settings.FlagWhisperName": "Flag Whispers",
+  "SCENEMESSAGE.Settings.FlagWhisperHint": "Flag whispers for sorting  (this will flag whispers even when they are not being sorted, but it will not apply to whispers made without this setting enabled).",
   "SCENEMESSAGE.Settings.GlobalChatName": "Unsort Chat",
   "SCENEMESSAGE.Settings.GlobalChatHint": "Stop sorting chat messages by scene (default foundry behavior).",
   "SCENEMESSAGE.Settings.InheritanceName": "Allow Inherited Scene IDs",
   "SCENEMESSAGE.Settings.InheritanceHint": "Allow messages to be sorted via inherited scene IDs (see the API section of the readme).",
   "SCENEMESSAGE.Settings.SortOocName": "Sort Out of Character Messages",
-  "SCENEMESSAGE.Settings.SortOocHint": "Flag and sort out of character messages by scene (will not apply to messages made without this setting enabled).",
+  "SCENEMESSAGE.Settings.SortOocHint": "Sort out of character messages by scene (this can only sort out of character messages that were made with 'Flag Out of Character Messages' enabled).",
   "SCENEMESSAGE.Settings.SortWhisperName": "Sort Whispers",
-  "SCENEMESSAGE.Settings.SortWhisperHint": "Flag and sort out whispers by scene (will not apply to messages made without this setting enabled)."
+  "SCENEMESSAGE.Settings.SortWhisperHint": "Sort whispers by scene (this can only sort whispers that were made with 'Flag Whispers' enabled)."
 }
