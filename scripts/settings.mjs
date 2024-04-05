@@ -24,7 +24,7 @@ export class settings {
       scope: "world",
       config: true,
       type: Boolean,
-      default: false,
+      default: true,
       requiresReload: true,
       onChange: false
     });
@@ -46,7 +46,7 @@ export class settings {
       scope: "world",
       config: true,
       type: Boolean,
-      default: false,
+      default: true,
       requiresReload: true,
       onChange: false
     });
