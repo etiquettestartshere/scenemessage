@@ -75,7 +75,7 @@ export class sceneMessage {
       const current = game.scenes.viewed.id;
       const log = document.getElementById("chat-log");
       const messages = Array.from(log.querySelectorAll('li.chat-message'));
-      const visible = Array.from(messages).filter((message) => message.dataset.originalScene === current);
+      const visible = messages.filter((message) => message.dataset.originalScene === current);
       const last = visible.at(-1);
       last.scrollIntoView();
     });
