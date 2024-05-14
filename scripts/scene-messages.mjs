@@ -7,9 +7,11 @@ export class sceneMessage {
     Hooks.on("canvasDraw", sceneMessage._sceneChange);
     if (!game.settings.get(MODULE, "globalChat")) {
       Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
+      Hooks.on("canvasDraw", sceneMessage._scrollBottom);
     };
   };
 
+  // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)
   static _sceneMessages(message, [html]) {
     const origin = message.speaker?.scene;
     if (!origin) return;
@@ -35,6 +37,7 @@ export class sceneMessage {
     };
   };
 
+  // Mark whispered ooc messages with origin
   static _oocSpeaker(message, data) {
     if (!game.settings.get(MODULE, "flagOoc")) return;
     const viewed = game.scenes.viewed.id;
@@ -42,6 +45,7 @@ export class sceneMessage {
     if (!speaker && (message.type !== 4)) message.updateSource({ "speaker.scene": viewed });
   };
 
+  // Mark whispered messages with origin
   static _whisperSpeaker(message, data) {
     if (!game.settings.get(MODULE, "flagWhisper")) return;
     const viewed = game.scenes.viewed.id;
@@ -49,6 +53,7 @@ export class sceneMessage {
     if (!speaker && (message.type === 4)) message.updateSource({ "speaker.scene": viewed });
   };
 
+  // Handle adding and removing the style to hide messages from varying origin on scene change
   static _sceneChange() {
     const temp = document.querySelector(".temporary");
     if (temp) temp.remove();
@@ -59,5 +64,20 @@ export class sceneMessage {
     styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
     styleEl.classList.add("temporary");
     document.head.appendChild(styleEl);
+  };
+
+  // Replace the jump to bottom `scrollBottom()` button with one that accounts for hidden messages
+  static _scrollBottom() {
+    if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
+    const jump = ui.chat._element[0].querySelector('.jump-to-bottom');
+    jump.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const current = game.scenes.viewed.id;
+      const log = document.getElementById("chat-log");
+      const messages = Array.from(log.querySelectorAll('li.chat-message'));
+      const visible = messages.filter((message) => message.dataset.originalScene === current);
+      const last = visible.at(-1);
+      last.scrollIntoView();
+    });
   };
 };

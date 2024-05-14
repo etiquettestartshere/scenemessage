@@ -1,7 +1,7 @@
 {
   "id": "scenemessage",
   "title": "Scene Specific Messages",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "esmodules": [
     "scripts/module.mjs"
   ],
@@ -34,5 +34,5 @@
   ],
   "url": "https://github.com/etiquettestartshere/scenemessage",
   "manifest": "https://github.com/etiquettestartshere/scenemessage/releases/latest/download/module.json",
-  "download": "https://github.com/etiquettestartshere/scenemessage/releases/download/v0.1.4/module.zip"
+  "download": "https://github.com/etiquettestartshere/scenemessage/releases/latest/download/module.zip"
 }
