@@ -68,9 +68,9 @@ export class sceneMessage {
 
   // Replace the jump to bottom `scrollBottom()` button with one that accounts for hidden messages
   static _scrollBottom() {
-    if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
     const jump = ui.chat._element[0].querySelector('.jump-to-bottom');
     jump.addEventListener('click', (event) => {
+      if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
       event.stopPropagation();
       const current = game.scenes.viewed.id;
       const log = document.getElementById("chat-log");
