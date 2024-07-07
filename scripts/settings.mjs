@@ -18,6 +18,22 @@ export class settings {
       onChange: false
     });
 
+    game.settings.register(MODULE, "batchSize", {
+      name: "SCENEMESSAGE.Settings.BatchSizeName",
+      hint: "SCENEMESSAGE.Settings.BatchSizeHint",
+      scope: "world",
+      config: true,
+      type: Number,
+      range: {
+        min: 100,
+        max: 1000,
+        step: 100,
+      },
+      default: 100,
+      requiresReload: true,
+      onChange: false
+    });
+
     game.settings.register(MODULE, "flagOoc", {
       name: "SCENEMESSAGE.Settings.FlagOocName",
       hint: "SCENEMESSAGE.Settings.FlagOocHint",
