@@ -2,6 +2,7 @@ import { MODULE } from "./const.mjs";;
 
 export class sceneMessage {
   static init() {
+    sceneMessage._batchSize();
     Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
     Hooks.on("preCreateChatMessage", sceneMessage._whisperSpeaker);
     Hooks.on("canvasDraw", sceneMessage._sceneChange);
@@ -9,6 +10,11 @@ export class sceneMessage {
       Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
       Hooks.on("canvasDraw", sceneMessage._scrollBottom);
     };
+  };
+
+  // Set number of messages to load
+  static _batchSize() {
+    CONFIG.ChatMessage.batchSize = game.settings.get(MODULE, "batchSize");
   };
 
   // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)

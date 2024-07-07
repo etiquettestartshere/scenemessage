@@ -1,4 +1,6 @@
 {
+  "SCENEMESSAGE.Settings.BatchSizeName": "Number of Messages to Load",
+  "SCENEMESSAGE.Settings.BatchSizeHint": "The number of messages loaded per initialization and scroll-up of the chat. Higher numbers may cause increased load time, so use the API option in those cases (see README).",
   "SCENEMESSAGE.Dialog.LoadMessages": "Load Messages",
   "SCENEMESSAGE.Dialog.NumberOfMessages": "Number of messages to load:",
   "SCENEMESSAGE.Dialog.Inheritance": "Inheritance",
