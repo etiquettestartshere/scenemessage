@@ -10,6 +10,9 @@ export class sceneMessage {
       Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
       Hooks.on("canvasDraw", sceneMessage._scrollBottom);
     };
+    if (game.system.id === "dnd5e") { 
+      Hooks.on("preCreateChatMessage", sceneMessage._rechargeRoll);
+    };  
   };
 
   // Set number of messages to load
@@ -85,5 +88,18 @@ export class sceneMessage {
       const last = visible.at(-1);
       last.scrollIntoView();
     });
+  };
+
+  /* -------------------------------------------- */
+  /*  System Specific Methods                     */
+  /* -------------------------------------------- */
+
+  // Sort rest and recovery messages (dnd5e)
+  static _rechargeRoll(message, data) {
+    const viewed = game.scenes.viewed.id;
+    const speaker = data.speaker;
+    if (message?.flavor.includes('Rest') || message?.flavor.includes('recovers')) {
+      message.updateSource({ "speaker.scene": viewed});
+    };
   };
 };
