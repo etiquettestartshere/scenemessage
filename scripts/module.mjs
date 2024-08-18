@@ -10,8 +10,8 @@ class scopeManager {
       inherit: API._inheritFlag,
       load: API._renderBatchDialog
     }
-  };
-};
+  }
+}
 
 Hooks.on("init", settings.init);
 Hooks.on("init", scopeManager.init);

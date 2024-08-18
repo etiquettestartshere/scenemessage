@@ -8,7 +8,7 @@ export class API {
     await game.scenes.viewed.setFlag(MODULE, "global", true); 
     ui.notifications.info(`${game.scenes.viewed.name}${game.i18n.localize("SCENEMESSAGE.Notifications.GlobalStatus")}${game.scenes.viewed.getFlag(MODULE, "global") ?? false}`);
     await canvas.draw();
-  };
+  }
 
   static async _inheritFlag() {
     if (!game.user.isGM) return ui.notifications.warn(game.i18n.localize("SCENEMESSAGE.Notifications.SetInheritanceFlag"));
@@ -41,7 +41,7 @@ export class API {
     const inheritance = foundry.utils.deepClone(game.scenes.viewed.getFlag(MODULE, "inherit") ?? []);
     inheritance.push(id);
     await game.scenes.viewed.setFlag(MODULE, "inherit", inheritance);
-  };
+  }
 
   static async _renderBatchDialog() {
     const {size} = await Dialog.wait({
@@ -83,5 +83,5 @@ export class API {
     });
     if (size === null) return;
     await ui.chat._renderBatch(ui.chat.element, size);
-  };
-};
+  }
+}

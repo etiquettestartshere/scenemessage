@@ -12,13 +12,13 @@ export class sceneMessage {
     };
     if (game.system.id === "dnd5e") { 
       Hooks.on("preCreateChatMessage", sceneMessage._rechargeRoll);
-    };  
-  };
+    };
+  }
 
   // Set number of messages to load
   static _batchSize() {
     CONFIG.ChatMessage.batchSize = game.settings.get(MODULE, "batchSize");
-  };
+  }
 
   // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)
   static _sceneMessages(message, [html]) {
@@ -44,7 +44,7 @@ export class sceneMessage {
       if (game.settings.get(MODULE, "sortWhisper")) return;
       else html.removeAttribute("data-original-scene", data);
     };
-  };
+  }
 
   // Mark whispered ooc messages with origin
   static _oocSpeaker(message, data) {
@@ -52,7 +52,7 @@ export class sceneMessage {
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
     if (!speaker && (message.type !== 4)) message.updateSource({ "speaker.scene": viewed });
-  };
+  }
 
   // Mark whispered messages with origin
   static _whisperSpeaker(message, data) {
@@ -60,7 +60,7 @@ export class sceneMessage {
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
     if (!speaker && (message.type === 4)) message.updateSource({ "speaker.scene": viewed });
-  };
+  }
 
   // Handle adding and removing the style to hide messages from varying origin on scene change
   static _sceneChange() {
@@ -73,7 +73,7 @@ export class sceneMessage {
     styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
     styleEl.classList.add("temporary");
     document.head.appendChild(styleEl);
-  };
+  }
 
   // Replace the jump to bottom `scrollBottom()` button with one that accounts for hidden messages
   static _scrollBottom() {
@@ -88,7 +88,7 @@ export class sceneMessage {
       const last = visible.at(-1);
       last.scrollIntoView();
     });
-  };
+  }
 
   /* -------------------------------------------- */
   /*  System Specific Methods                     */
@@ -101,5 +101,5 @@ export class sceneMessage {
     if (message?.flavor.includes('Rest') || message?.flavor.includes('recovers')) {
       message.updateSource({ "speaker.scene": viewed});
     };
-  };
-};
+  }
+}
