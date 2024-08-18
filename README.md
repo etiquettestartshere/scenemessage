@@ -16,7 +16,7 @@ Includes a functionality that allows you to mark new scenes with the old one's I
 ※ Execute these in the console (F12) or add them to 'script' type macros to execute.
 
 ## System Specific Functions
-This is a system agnostic module, but I am willing to add support for system specific messages that are not being correctly sorted, but should be. I mostly use foundry for dnd5e--users of other systems are free to make an issue asking for specific support (plesae provide necessary details) or make pull requests. So far, system specific uses includes the following: 
+This is a system agnostic module, but I am willing to add support for system specific messages that are not being correctly sorted, but should be. I mostly use foundry for dnd5e—users of other systems are free to make an issue asking for specific support (please provide necessary details) or, to make implementation more likely, make pull requests. So far, system specific uses includes the following: 
 
 ### dnd5e
 - Sorts rest and charge recovery messages to the currently viewed scene.
