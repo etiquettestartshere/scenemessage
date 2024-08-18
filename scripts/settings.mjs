@@ -4,7 +4,7 @@ export class settings {
 
   static init() {
     settings._settings();
-  };
+  }
   
   static _settings() {
     game.settings.register(MODULE, "globalChat", {
@@ -88,5 +88,5 @@ export class settings {
       requiresReload: true,
       onChange: false
     });
-  };
-};
+  }
+}
