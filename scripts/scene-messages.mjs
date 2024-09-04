@@ -1,17 +1,17 @@
 import { MODULE } from "./const.mjs";;
 
-export class sceneMessage {
+export class SceneMessage {
   static init() {
-    sceneMessage._batchSize();
-    Hooks.on("preCreateChatMessage", sceneMessage._oocSpeaker);
-    Hooks.on("preCreateChatMessage", sceneMessage._whisperSpeaker);
-    Hooks.on("canvasDraw", sceneMessage._sceneChange);
+    SceneMessage._batchSize();
+    Hooks.on("preCreateChatMessage", SceneMessage._oocSpeaker);
+    Hooks.on("preCreateChatMessage", SceneMessage._whisperSpeaker);
+    Hooks.on("canvasDraw", SceneMessage._sceneChange);
     if (!game.settings.get(MODULE, "globalChat")) {
-      Hooks.on("renderChatMessage", sceneMessage._sceneMessages);
-      Hooks.on("canvasDraw", sceneMessage._scrollBottom);
+      Hooks.on("renderChatMessage", SceneMessage._SceneMessages);
+      Hooks.on("canvasDraw", SceneMessage._scrollBottom);
     };
     if (game.system.id === "dnd5e") { 
-      Hooks.on("preCreateChatMessage", sceneMessage._rechargeRoll);
+      Hooks.on("preCreateChatMessage", SceneMessage._rechargeRoll);
     };
   }
 
@@ -20,10 +20,16 @@ export class sceneMessage {
     CONFIG.ChatMessage.batchSize = game.settings.get(MODULE, "batchSize");
   }
 
+  // Deal with the type to style deprecation in v12
+  static styleType() {
+    return foundry.utils.isNewerVersion(12, game.version) ? "type" : "style";
+  }
+
   // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)
-  static _sceneMessages(message, [html]) {
+  static _SceneMessages(message, [html]) {
     const origin = message.speaker?.scene;
     if (!origin) return;
+    let STYLETYPE = SceneMessage.styleType();
     let data;
     if (game.settings.get(MODULE, "allowInheritance")) {
       const inherit = game.scenes?.viewed?.getFlag(MODULE, "inherit");
@@ -36,22 +42,22 @@ export class sceneMessage {
       html.setAttribute("data-original-scene", data);
     } else data = origin;
     html.setAttribute("data-original-scene", data);
-    if (message.type === 1) {
+    if (message[STYLETYPE] === 1) {
       if (game.settings.get(MODULE, "sortOoc")) return;
       else html.removeAttribute("data-original-scene", data);
     };
-    if (message.type === 4) {
+    if (message.whisper.length) {
       if (game.settings.get(MODULE, "sortWhisper")) return;
       else html.removeAttribute("data-original-scene", data);
     };
   }
 
-  // Mark whispered ooc messages with origin
+  // Mark ooc messages with origin
   static _oocSpeaker(message, data) {
     if (!game.settings.get(MODULE, "flagOoc")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
-    if (!speaker && (message.type !== 4)) message.updateSource({ "speaker.scene": viewed });
+    if (!speaker && (!message.whisper.length)) message.updateSource({ "speaker.scene": viewed });
   }
 
   // Mark whispered messages with origin
@@ -59,7 +65,7 @@ export class sceneMessage {
     if (!game.settings.get(MODULE, "flagWhisper")) return;
     const viewed = game.scenes.viewed.id;
     const speaker = data.speaker;
-    if (!speaker && (message.type === 4)) message.updateSource({ "speaker.scene": viewed });
+    if (!speaker && (message.whisper.length)) message.updateSource({ "speaker.scene": viewed });
   }
 
   // Handle adding and removing the style to hide messages from varying origin on scene change
@@ -97,7 +103,6 @@ export class sceneMessage {
   // Sort rest and recovery messages (dnd5e)
   static _rechargeRoll(message, data) {
     const viewed = game.scenes.viewed.id;
-    const speaker = data.speaker;
     if (message?.flavor.includes('Rest') || message?.flavor.includes('recovers')) {
       message.updateSource({ "speaker.scene": viewed});
     };

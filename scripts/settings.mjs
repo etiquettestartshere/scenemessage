@@ -1,9 +1,9 @@
 import { MODULE } from "./const.mjs";
 
-export class settings {
+export class Settings {
 
   static init() {
-    settings._settings();
+    Settings._settings();
   }
   
   static _settings() {
