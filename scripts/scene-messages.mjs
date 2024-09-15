@@ -8,7 +8,7 @@ export class SceneMessage {
     Hooks.on("canvasDraw", SceneMessage._sceneChange);
     if (!game.settings.get(MODULE, "globalChat")) {
       Hooks.on("renderChatMessage", SceneMessage._SceneMessages);
-      Hooks.on("canvasDraw", SceneMessage._scrollBottom);
+      Hooks.on("renderChatLog", SceneMessage._scrollBottom);
     };
     if (game.system.id === "dnd5e") { 
       Hooks.on("preCreateChatMessage", SceneMessage._rechargeRoll);
@@ -74,22 +74,21 @@ export class SceneMessage {
     if (temp) temp.remove();
     if (game.settings.get(MODULE, "globalChat")) return;
     if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
-    const current =  game.scenes.viewed.id;
     const styleEl = document.createElement("style");
+    const current =  game.scenes.viewed.id;
     styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
     styleEl.classList.add("temporary");
     document.head.appendChild(styleEl);
   }
 
   // Replace the jump to bottom `scrollBottom()` button with one that accounts for hidden messages
-  static _scrollBottom() {
-    const jump = ui.chat._element[0].querySelector('.jump-to-bottom');
+  static _scrollBottom(app, [html]) {
+    const jump = html.querySelector('.jump-to-bottom');
     jump.addEventListener('click', (event) => {
       if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
       event.stopPropagation();
+      const messages = Array.from(html.querySelectorAll('li.chat-message'));
       const current = game.scenes.viewed.id;
-      const log = document.getElementById("chat-log");
-      const messages = Array.from(log.querySelectorAll('li.chat-message'));
       const visible = messages.filter((message) => message.dataset.originalScene === current);
       const last = visible.at(-1);
       last.scrollIntoView();
