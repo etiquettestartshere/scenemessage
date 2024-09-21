@@ -89,7 +89,13 @@ export class SceneMessage {
       event.stopPropagation();
       const messages = Array.from(html.querySelectorAll('li.chat-message'));
       const current = game.scenes.viewed.id;
-      const visible = messages.filter((message) => message.dataset.originalScene === current);
+      let visible = [];
+      if (game.settings.get(MODULE, "sortWhisper")) visible = messages.filter((message) => message.dataset.originalScene === current);
+      else visible = messages.reduce((acc, m) => {
+        if (m.dataset.originalScene === current) acc.push(m);
+        if (Array.from(m.classList).some( (c) =>  c === "whisper")) acc.push(m);
+        return acc;
+      }, []);
       const last = visible.at(-1);
       last.scrollIntoView();
     });
