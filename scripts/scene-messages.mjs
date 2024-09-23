@@ -93,7 +93,7 @@ export class SceneMessage {
       if (game.settings.get(MODULE, "sortWhisper")) visible = messages.filter((message) => message.dataset.originalScene === current);
       else visible = messages.reduce((acc, m) => {
         if (m.dataset.originalScene === current) acc.push(m);
-        if (Array.from(m.classList).some( (c) =>  c === "whisper")) acc.push(m);
+        if (Array.from(m.classList).some(c => c === "whisper")) acc.push(m);
         return acc;
       }, []);
       const last = visible.at(-1);
