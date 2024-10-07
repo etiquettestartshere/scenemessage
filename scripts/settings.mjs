@@ -88,5 +88,16 @@ export class Settings {
       requiresReload: true,
       onChange: false
     });
+
+    game.settings.register(MODULE, "sortDiceSoNice", {
+      name: "SCENEMESSAGE.Settings.SortDiceSoNiceName",
+      hint: "SCENEMESSAGE.Settings.SortDiceSoNiceHint",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: true,
+      requiresReload: false,
+      onChange: false
+    });
   }
 }

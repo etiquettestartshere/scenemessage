@@ -10,9 +10,27 @@ export class SceneMessage {
       Hooks.on("renderChatMessage", SceneMessage._SceneMessages);
       Hooks.on("renderChatLog", SceneMessage._scrollBottom);
     };
-    if (game.system.id === "dnd5e") { 
+    if (game.system.id === "dnd5e") {
       Hooks.on("preCreateChatMessage", SceneMessage._rechargeRoll);
     };
+    if (game.modules.get("dice-so-nice")?.active) {
+      foundry.utils.isNewerVersion(12, game.version) ?
+        Hooks.on("diceSoNiceRollStart", SceneMessage._dsnMessage) :
+        Hooks.on("diceSoNiceMessageProcessed", SceneMessage._dsnMessage);
+    };
+  }
+
+  /* -------------------------------------------- */
+  /*  Helpers and Misc. Methods                   */
+  /* -------------------------------------------- */
+
+  // Deal with the type to style deprecation in v12
+  static styleType() {
+    return foundry.utils.isNewerVersion(12, game.version) ? "type" : "style";
+  }
+
+  static originalInheritedScene() {
+
   }
 
   // Set number of messages to load
@@ -20,10 +38,10 @@ export class SceneMessage {
     CONFIG.ChatMessage.batchSize = game.settings.get(MODULE, "batchSize");
   }
 
-  // Deal with the type to style deprecation in v12
-  static styleType() {
-    return foundry.utils.isNewerVersion(12, game.version) ? "type" : "style";
-  }
+
+  /* -------------------------------------------- */
+  /*  Sorting Methods                             */
+  /* -------------------------------------------- */
 
   // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)
   static _SceneMessages(message, [html]) {
@@ -75,7 +93,7 @@ export class SceneMessage {
     if (game.settings.get(MODULE, "globalChat")) return;
     if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
     const styleEl = document.createElement("style");
-    const current =  game.scenes.viewed.id;
+    const current = game.scenes.viewed.id;
     styleEl.innerHTML = `.chat-message.message[data-original-scene]:not([data-original-scene="${current}"]) { display: none; }`
     styleEl.classList.add("temporary");
     document.head.appendChild(styleEl);
@@ -109,7 +127,28 @@ export class SceneMessage {
   static _rechargeRoll(message, data) {
     const viewed = game.scenes.viewed.id;
     if (message?.flavor.includes('Rest') || message?.flavor.includes('recovers')) {
-      message.updateSource({ "speaker.scene": viewed});
+      message.updateSource({ "speaker.scene": viewed });
     };
   }
+
+  /* -------------------------------------------- */
+  /*  Module Specific Methods                     */
+  /* -------------------------------------------- */
+
+  // Sort Dice So Nice rolls
+  static _dsnMessage(id, opts) {
+    if (!game.settings.get(MODULE, "sortDiceSoNice")) return;
+    const message = game.messages.get(id);
+    if (!message) return;
+    const scene = message.speaker?.scene;
+    if (!scene) return;
+    if (message.whisper.length) {
+      if (!game.settings.get(MODULE, "sortWhisper")) return;
+    };
+    if (scene !== game.scenes.viewed.id) {
+      foundry.utils.isNewerVersion(12, game.version) ?
+        opts.blind = true :
+        opts.willTrigger3DRoll = false;
+    };
+  };
 }
