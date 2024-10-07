@@ -29,10 +29,6 @@ export class SceneMessage {
     return foundry.utils.isNewerVersion(12, game.version) ? "type" : "style";
   }
 
-  static originalInheritedScene() {
-
-  }
-
   // Set number of messages to load
   static _batchSize() {
     CONFIG.ChatMessage.batchSize = game.settings.get(MODULE, "batchSize");
