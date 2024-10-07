@@ -34,7 +34,6 @@ export class SceneMessage {
     CONFIG.ChatMessage.batchSize = game.settings.get(MODULE, "batchSize");
   }
 
-
   /* -------------------------------------------- */
   /*  Sorting Methods                             */
   /* -------------------------------------------- */
