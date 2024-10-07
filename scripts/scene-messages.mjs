@@ -51,7 +51,7 @@ export class SceneMessage {
         data = game.scenes.viewed.id;
       } else {
         data = origin;
-      }
+      };
       html.setAttribute("data-original-scene", data);
     } else data = origin;
     html.setAttribute("data-original-scene", data);
@@ -137,9 +137,7 @@ export class SceneMessage {
     if (!message) return;
     const scene = message.speaker?.scene;
     if (!scene) return;
-    if (message.whisper.length) {
-      if (!game.settings.get(MODULE, "sortWhisper")) return;
-    };
+    if (message.whisper.length && !game.settings.get(MODULE, "sortWhisper")) return;
     if (scene !== game.scenes.viewed.id) {
       foundry.utils.isNewerVersion(12, game.version) ?
         opts.blind = true :
