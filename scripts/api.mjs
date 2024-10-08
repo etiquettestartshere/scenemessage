@@ -83,5 +83,6 @@ export class API {
     });
     if (size === null) return;
     await ui.chat._renderBatch(ui.chat.element, size);
+    for (const v of Object.values(ui.windows)) if (v.constructor === CONFIG.ui.chat) return v._renderBatch(v.element, size);
   }
 }
