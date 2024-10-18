@@ -1,12 +1,14 @@
 # Scene Specific Messages
-### DEPRECATED
-Sadly I will not continue development on this module because `ChatLog#_renderBatch` has been made a true private method in v13. If foundry reconsiders this decision, which does not seem likely, I will consider further development.
-___
+
 A module for foundryvtt that renders chat messages on a per-scene basis.
 - Includes settings to flag OOC messages and whispers. Only messages that have been made with these settings enabled can be sorted, as OOC messages and whispers are not inherently marked with their originating scene.
 - Includes a setting to mark and filter OOC messages. Note: this cannot retroactively filter OOC messages made without the setting to flag OOC messages on on). These settings are on by default, so if you have no wish to sort OOC messages or whispers in the future, please disable them to prevent unnecessary data from being added.
 - Includes a setting to sort whispers in the same manner as above.
 Includes a functionality that allows you to mark new scenes with the old one's ID (without overwriting its actual ID) to let chat messages be sorted into that scene--see API for more.
+
+#### POSSIBLE DEPRECATION
+
+Sadly I will not continue development on this module if `ChatLog#_renderBatch` has been made a true private method in v13 and no replacement is found or created.
 
 ## API
 `game.modules.get("scenemessage").api.load()` will bring up a dialog allowing you to load a number of chat messages of your choice (or the next 100 if you hit the :100: button). This can be useful if your scene does not have enough messages sorted into it to allow scrolling, thus allowing you to access chat logs from older than the most recent 100 messages. **Clientside, available to users.** I considered adding sockets to allow the GM to do this for all users on the currently viewed scene, but because normal chat scroll is left to the user, I thought this should be as well.
