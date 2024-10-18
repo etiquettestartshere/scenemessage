@@ -1,4 +1,7 @@
 # Scene Specific Messages
+### DEPRECATED
+Sadly I will not continue development on this module because `ChatLog#_renderBatch` has been made a true private method in v13. If foundry reconsiders this decision, which does not seem likely, I will consider further development.
+___
 A module for foundryvtt that renders chat messages on a per-scene basis.
 - Includes settings to flag OOC messages and whispers. Only messages that have been made with these settings enabled can be sorted, as OOC messages and whispers are not inherently marked with their originating scene.
 - Includes a setting to mark and filter OOC messages. Note: this cannot retroactively filter OOC messages made without the setting to flag OOC messages on on). These settings are on by default, so if you have no wish to sort OOC messages or whispers in the future, please disable them to prevent unnecessary data from being added.
