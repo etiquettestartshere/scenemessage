@@ -18,12 +18,6 @@ export class SceneMessage {
         Hooks.on("diceSoNiceRollStart", SceneMessage._dsnMessage) :
         Hooks.on("diceSoNiceMessageProcessed", SceneMessage._dsnMessage);
     };
-    Hooks.on("deleteChatMessage", (a, b, c, d)=> {
-      console.warn(a)
-      console.log(b)
-      console.log(c)
-      console.log(d)
-    })
   }
 
   /* -------------------------------------------- */
