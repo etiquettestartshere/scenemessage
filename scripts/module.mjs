@@ -8,7 +8,8 @@ class ScopeManager {
     game.modules.get(MODULE).api = {
       global: API._globalFlag,
       inherit: API._inheritFlag,
-      load: API._renderBatchDialog
+      load: API._renderBatchDialog,
+      scroll: API.scroll
     }
   }
 }

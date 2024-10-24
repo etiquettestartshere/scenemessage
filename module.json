@@ -1,7 +1,7 @@
 {
   "id": "scenemessage",
   "title": "Scene Specific Messages",
-  "version": "0.3.6",
+  "version": "13.0.x",
   "esmodules": [
     "scripts/module.mjs"
   ],

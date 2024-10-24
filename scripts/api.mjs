@@ -82,7 +82,7 @@ export class API {
       id: "scene-message-batch-loader"
     });
     if (size === null) return;
-    await ui.chat._renderBatch(ui.chat.element, size);
-    for (const v of Object.values(ui.windows)) if (v instanceof ChatLog) return v._renderBatch(v.element, size);
+    //await ui.chat._renderBatch(ui.chat.element, size);
+    //for (const v of Object.values(ui.windows)) if (v instanceof ChatLog) return v._renderBatch(v.element, size);
   }
 }

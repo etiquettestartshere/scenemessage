@@ -7,7 +7,7 @@ export class SceneMessage {
     Hooks.on("preCreateChatMessage", SceneMessage._whisperSpeaker);
     Hooks.on("canvasDraw", SceneMessage._sceneChange);
     if (!game.settings.get(MODULE, "globalChat")) {
-      Hooks.on("renderChatMessage", SceneMessage._SceneMessages);
+      Hooks.on("renderChatMessageHTML", SceneMessage._SceneMessages);
       Hooks.on("renderChatLog", SceneMessage._scrollBottom);
     };
     if (game.system.id === "dnd5e") {
@@ -18,6 +18,12 @@ export class SceneMessage {
         Hooks.on("diceSoNiceRollStart", SceneMessage._dsnMessage) :
         Hooks.on("diceSoNiceMessageProcessed", SceneMessage._dsnMessage);
     };
+    Hooks.on("deleteChatMessage", (a, b, c, d)=> {
+      console.warn(a)
+      console.log(b)
+      console.log(c)
+      console.log(d)
+    })
   }
 
   /* -------------------------------------------- */
@@ -39,7 +45,7 @@ export class SceneMessage {
   /* -------------------------------------------- */
 
   // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)
-  static _SceneMessages(message, [html]) {
+  static _SceneMessages(message, html) {
     const origin = message.speaker?.scene;
     if (!origin) return;
     let STYLETYPE = SceneMessage.styleType();
@@ -95,7 +101,7 @@ export class SceneMessage {
   }
 
   // Replace the jump to bottom `scrollBottom()` button with one that accounts for hidden messages
-  static _scrollBottom(app, [html]) {
+  static _scrollBottom(app, html) {
     const jump = html.querySelector('.jump-to-bottom');
     jump.addEventListener('click', (event) => {
       if (game.scenes.viewed.getFlag(MODULE, "global", true)) return;
