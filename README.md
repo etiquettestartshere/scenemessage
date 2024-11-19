@@ -17,10 +17,7 @@ Includes a functionality that allows you to mark new scenes with the old one's I
 ※ Execute these in the console (F12) or add them to 'script' type macros to execute.
 
 ## System Specific Functions
-This is a system agnostic module, but I am willing to add support for system specific messages that are not being correctly sorted, but should be. I mostly use foundry for dnd5e—users of other systems are free to make an issue asking for specific support (please provide necessary details) or, to make implementation more likely, make pull requests. So far, system specific uses includes the following: 
-
-### dnd5e
-- Sorts rest and charge recovery messages to the currently viewed scene.
+This is a system agnostic module, but I am willing to add support for system specific messages that are not being correctly sorted, but should be. I mostly use foundry for dnd5e—users of other systems are free to make an issue asking for specific support (please provide necessary details). The current state of the module should cover most use cases, so please be specific in cases where it does not.
 
 ## Known Limitations
 Because foundry only loads the last 100 chat messages, scenes which have fewer than a scrollbar's worth of chat messages flagged to appear in them in the last 100 cannot scroll up, and because of that they cannot load any older messages. Please use the first API method to overcome this if needed: for best results, do not load more than you need, though loading large numbers may not be able to be avoided if you have a world with many messages.
