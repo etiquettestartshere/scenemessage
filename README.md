@@ -6,10 +6,6 @@ A module for foundryvtt that renders chat messages on a per-scene basis.
 - Includes a setting to sort whispers in the same manner as above.
 Includes a functionality that allows you to mark new scenes with the old one's ID (without overwriting its actual ID) to let chat messages be sorted into that scene--see API for more.
 
-#### POSSIBLE DEPRECATION
-
-Sadly I will not continue development on this module if `ChatLog#_renderBatch` has been made a true private method in v13 and no replacement is found or created.
-
 ## API
 `game.modules.get("scenemessage").api.load()` will bring up a dialog allowing you to load a number of chat messages of your choice (or the next 100 if you hit the :100: button). This can be useful if your scene does not have enough messages sorted into it to allow scrolling, thus allowing you to access chat logs from older than the most recent 100 messages. **Clientside, available to users.** I considered adding sockets to allow the GM to do this for all users on the currently viewed scene, but because normal chat scroll is left to the user, I thought this should be as well.
 

@@ -5,14 +5,14 @@ export class SceneMessage {
     SceneMessage._batchSize();
     Hooks.on("preCreateChatMessage", SceneMessage._oocSpeaker);
     Hooks.on("preCreateChatMessage", SceneMessage._whisperSpeaker);
+    Hooks.on("preCreateChatMessage", SceneMessage._setSpeaker);
     Hooks.on("canvasDraw", SceneMessage._sceneChange);
     if (!game.settings.get(MODULE, "globalChat")) {
-      Hooks.on("renderChatMessage", SceneMessage._SceneMessages);
+      Hooks.on("renderChatMessage", SceneMessage._sceneMessages);
       Hooks.on("renderChatLog", SceneMessage._scrollBottom);
     };
-    if (game.system.id === "dnd5e") {
-      Hooks.on("preCreateChatMessage", SceneMessage._rechargeRoll);
-    };
+
+    // Module specific method initialization
     if (game.modules.get("dice-so-nice")?.active) {
       foundry.utils.isNewerVersion(12, game.version) ?
         Hooks.on("diceSoNiceRollStart", SceneMessage._dsnMessage) :
@@ -39,7 +39,7 @@ export class SceneMessage {
   /* -------------------------------------------- */
 
   // Add the scene of origin (or inherited origin) to an html element for easy getting (dynamically, on render)
-  static _SceneMessages(message, [html]) {
+  static _sceneMessages(message, [html]) {
     const origin = message.speaker?.scene;
     if (!origin) return;
     let STYLETYPE = SceneMessage.styleType();
@@ -81,6 +81,14 @@ export class SceneMessage {
     if (!speaker && (message.whisper.length)) message.updateSource({ "speaker.scene": viewed });
   }
 
+  // Mark messages associated with an actor with a scene
+  static _setSpeaker(message, data) {
+    if (!game.settings.get(MODULE, "flagSpeaker")) return;
+    const viewed = game.scenes.viewed.id;
+    const speaker = data.speaker;
+    if (speaker && (!speaker?.scene)) message.updateSource({ "speaker.scene": viewed });
+  }
+
   // Handle adding and removing the style to hide messages from varying origin on scene change
   static _sceneChange() {
     const temp = document.querySelector(".temporary");
@@ -112,18 +120,6 @@ export class SceneMessage {
       const last = visible.at(-1);
       last.scrollIntoView();
     });
-  }
-
-  /* -------------------------------------------- */
-  /*  System Specific Methods                     */
-  /* -------------------------------------------- */
-
-  // Sort rest and recovery messages (dnd5e)
-  static _rechargeRoll(message, data) {
-    const viewed = game.scenes.viewed.id;
-    if (message?.flavor.includes('Rest') || message?.flavor.includes('recovers')) {
-      message.updateSource({ "speaker.scene": viewed });
-    };
   }
 
   /* -------------------------------------------- */
