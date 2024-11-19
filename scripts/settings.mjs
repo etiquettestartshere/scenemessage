@@ -41,7 +41,7 @@ export class Settings {
       config: true,
       type: Boolean,
       default: true,
-      requiresReload: true,
+      requiresReload: false,
       onChange: false
     });
 
@@ -63,7 +63,7 @@ export class Settings {
       config: true,
       type: Boolean,
       default: true,
-      requiresReload: true,
+      requiresReload: false,
       onChange: false
     });
 
@@ -75,6 +75,17 @@ export class Settings {
       type: Boolean,
       default: false,
       requiresReload: true,
+      onChange: false
+    });
+
+    game.settings.register(MODULE, "flagSpeaker", {
+      name: "SCENEMESSAGE.Settings.FlagSpeakerName",
+      hint: "SCENEMESSAGE.Settings.FlagSpeakerHint",
+      scope: "world",
+      config: true,
+      type: Boolean,
+      default: true,
+      requiresReload: false,
       onChange: false
     });
 

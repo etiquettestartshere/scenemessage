@@ -18,6 +18,8 @@
       "BatchSizeHint": "The number of messages loaded per initialization and scroll-up of the chat. Higher numbers may cause increased load time, so use the API option in those cases (see README).",
       "FlagOocName": "Flag Out of Character Messages",
       "FlagOocHint": "Flag out of character messages for sorting (this will flag messages even when they are not being sorted, but it will not apply to messages made without this setting enabled).",
+      "FlagSpeakerName": "Flag Messages with Scene",
+      "FlagSpeakerHint": "Flag messages that have a speaker associated with them, but no scene, with the scene that was viewed at the time of message creation. This setting is intended to broadly support many system generated messages, and should be left on unless it is causing issues.",
       "FlagWhisperName": "Flag Whispers",
       "FlagWhisperHint": "Flag whispers for sorting  (this will flag whispers even when they are not being sorted, but it will not apply to whispers made without this setting enabled).",
       "GlobalChatName": "Unsort Chat",
